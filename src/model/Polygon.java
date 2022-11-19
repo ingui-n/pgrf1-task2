@@ -126,4 +126,22 @@ public class Polygon {
         Point point = new Point(mouseX, mouseY);
         replacePoint(point, closestPointIndex);
     }
+
+    public Polygon setPoints(ArrayList<Point> points) {
+        clear();
+
+        for (Point p : points)
+            addPoint(p);
+
+        return this;
+    }
+
+    public void spinPoints() {
+        ArrayList<Point> points = new ArrayList<>();
+
+        for (int i = getCount() - 1; i >= 0; i--)
+            points.add(getPoint(i));
+
+        setPoints(points);
+    }
 }

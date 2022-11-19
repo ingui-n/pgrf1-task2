@@ -157,7 +157,7 @@ public class Canvas {
                         polygonClipper.addPoint(point);
                     }
                 } else if (e.getKeyCode() == KeyEvent.VK_W) {
-                    Polygon p = new Clipper(polygonClipper, polygon).getClip();
+                    Polygon p = new Clipper(polygonClipper, polygon, true).getClip();
 
                     polygon.clear();
                     polygonClipper.clear();

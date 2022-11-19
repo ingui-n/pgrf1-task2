@@ -6,11 +6,15 @@ import model.Polygon;
 
 public class Clipper {
     private Polygon polygon;
+    private final Polygon originalPolygon;
     private final Polygon polygonClipper;
+    private final boolean secondTry;
 
-    public Clipper(Polygon polygonClipper, Polygon polygon) {
+    public Clipper(Polygon polygonClipper, Polygon polygon, Boolean secondTry) {
         this.polygonClipper = polygonClipper;
         this.polygon = polygon;
+        this.originalPolygon = new Polygon().setPoints(polygon.getPoints());
+        this.secondTry = secondTry;
     }
 
     public Polygon getClip() {
@@ -42,6 +46,13 @@ public class Clipper {
                 polygon = newPolygon;
             }
         }
+
+        if (newPolygon.getCount() == 0 && this.secondTry) {
+            System.out.println(originalPolygon.getPoints());
+            polygonClipper.spinPoints();
+            return new Clipper(polygonClipper, originalPolygon, false).getClip();
+        }
+
 
         return newPolygon;
     }
